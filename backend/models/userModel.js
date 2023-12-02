@@ -30,4 +30,12 @@ const userSchema = new mongoose.Schema({
         default:user
     }
 },{timestamps:true})
+// 
+const bcrypt=require("bcryptjs");
+userSchema.pre('save',async function(next){
+    if(!this.isModified('password')){
+        next();
+    }
+    this.password=await bcrypt.hash(this.password,15)
+})
 module.exports=mongoose.model("User",userSchema)
