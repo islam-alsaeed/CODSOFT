@@ -64,3 +64,12 @@ const sendTokenResponse = async (user, statuscode, res) => {
     res.status(statuscode).cookie('token', token, { maxAge: 60 * 60 * 1000, httponly: true })
         .json({ success: true, token, user })
 }
+
+// user profile
+exports.userProfile = async (req, res, next) => {
+    const user = await User.findById(req.user.id).select('-password');
+    res.status(200).json({
+        success: true,
+        user
+    })
+}

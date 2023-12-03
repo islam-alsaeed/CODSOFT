@@ -1,17 +1,17 @@
-const express=require('express');
-const router=express.Router();
-const { signin,signup, logout } = require("../controllers/authiController");
+const express = require('express');
+const router = express.Router();
+const { signin, signup, logout, userProfile } = require("../controllers/authiController");
+const { ifAuthenticated } = require('../middleware/authentication ');
 
 // Auth routes
-router.route('/signin')
-  .get(signin) // Handle GET /signin
-  .post(signin); // Handle POST /signin
-  
-  // signup page
-//   router.route('/signup')
-//     .get(signup) // Handle GET /signin
-//     .post(signup); // Handle POST /signin
-router.post('/signup',signup)
-router.get('/logout',logout)
 
-module.exports=router;
+// signin page route
+router.route('/signin').post(signin); // Handle POST /signin
+// signup page route
+router.post('/signup', signup)
+// logout route
+router.get('/logout', logout)
+// User profile route
+router.get('/profile', ifAuthenticated, userProfile)
+
+module.exports = router;

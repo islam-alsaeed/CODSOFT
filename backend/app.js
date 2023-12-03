@@ -10,7 +10,8 @@ const errorHandler = require("./middleware/error")
 const port = process.env.PORT || 8002;
 
 // import router from "./routes/authiRoute";
-const authroutes = require("./routes/authiRoute");
+const authroutes = require("./routes/authiRoute");// for authentication routes
+const UserRoute =require("./routes/UserRoutes");//user routes
 
 
 // DB connection 
@@ -36,8 +37,12 @@ app.use(cors());
 // app.get('/',(req,res)=>{
 //     res.send("hello from js");
 // })
-// main router
+// //main router
+
+// user autheriztion route
 app.use( authroutes);
+// 
+app.use( UserRoute);
 // app.use("/app", authroutes);
 
 // custome error 
