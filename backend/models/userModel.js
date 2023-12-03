@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         trim: true,
         required: [true, "password is required"],
-        minlength:[8,'Password must be at least 8 characters length'] ,
+        minlength: [8, 'Password must be at least 8 characters length'],
     },
     email: {
         type: String,
@@ -25,17 +25,28 @@ const userSchema = new mongoose.Schema({
         unique: true,
         match: [/^\w+([\.-]?\w+)@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please add valid email']
     },
-    role:{
-        type:String,
-        default:"user"
+    role: {
+        type: Number,
+        default: 0
     }
-},{timestamps:true})
+}, { timestamps: true })
+
 // 
-const bcrypt=require("bcryptjs");
-userSchema.pre('save',async function(next){
-    if(!this.isModified('password')){
+const bcrypt = require("bcryptjs");
+userSchema.pre('save', async function (next) {
+    if (!this.isModified('password')) {
         next();
     }
-    this.password=await bcrypt.hash(this.password,15)
+    this.password = await bcrypt.hash(this.password, 15)
 })
-module.exports=mongoose.model("User",userSchema)
+// check if the password is matching 
+userSchema.methods.checkpassword = async function (receivedPassword) {
+    return await bcrypt.compare(receivedPassword, this.password)
+}
+
+const jwt = require('jsonwebtoken');
+userSchema.methods.getJwtToken = function () {
+    return jwt.sign({ id: this.id }, process.env.JWT_SECRET,
+        { expiresIn: 3600 });//session expiration time
+}
+module.exports = mongoose.model("User", userSchema)
