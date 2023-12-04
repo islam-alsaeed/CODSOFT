@@ -41,7 +41,7 @@ exports.signup = async (req, res, next) => {
         return next(new errorResponse('Email already registred', 400));
     }
     try {
-        const user = User.create(req.body);
+        const user = await User.create(req.body);
         res.status(201).json({
             success: true,
             user
