@@ -41,7 +41,7 @@ exports.signup = async (req, res, next) => {
         return next(new errorResponse('Email already registred', 400));
     }
     try {
-        const user = User.create(req.body);
+        const user = await User.create(req.body);
         res.status(201).json({
             success: true,
             user
@@ -63,4 +63,13 @@ const sendTokenResponse = async (user, statuscode, res) => {
     const token = await user.getJwtToken();
     res.status(statuscode).cookie('token', token, { maxAge: 60 * 60 * 1000, httponly: true })
         .json({ success: true, token, user })
+}
+
+// user profile
+exports.userProfile = async (req, res, next) => {
+    const user = await User.findById(req.user.id).select('-password');
+    res.status(200).json({
+        success: true,
+        user
+    })
 }
