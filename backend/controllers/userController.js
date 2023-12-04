@@ -25,3 +25,17 @@ exports.LoadAllUsers = async (req,res,next)=>{
     }
 
 }
+
+// display one user
+exports.oneUser= async (req,res,next)=>{
+    try {
+        const user= await User.findById(req.params.id);
+        res.status(200).json({
+            success: true,
+            user
+        })
+        next();
+    } catch (error) {
+        return next(error);
+    }
+}
