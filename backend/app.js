@@ -12,6 +12,7 @@ const port = process.env.PORT || 8002;
 // import router from "./routes/authiRoute";
 const authroutes = require("./routes/authiRoute");// for authentication routes
 const UserRoute =require("./routes/UserRoutes");//user routes
+const JobTypeRoutes =require("./routes/jobTypeRoutes");//user routes
 
 
 // DB connection 
@@ -43,6 +44,7 @@ app.use(cors());
 app.use( authroutes);
 // 
 app.use( UserRoute);
+app.use( JobTypeRoutes);
 // app.use("/app", authroutes);
 
 // custome error 
