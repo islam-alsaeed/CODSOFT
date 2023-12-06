@@ -17,7 +17,7 @@ const jobSchema = new mongoose.Schema({
         trim: true,
         required: [true, "Salary is required"],
     },
-    Location: {
+    location: {
         type: String,
     },
     available: {
