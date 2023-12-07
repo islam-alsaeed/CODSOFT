@@ -37,18 +37,27 @@ exports.OneJob = async (req, res, next) => {
 }
 // display all job 
 exports.DisplayJobs = async (req, res, next) => {
+    // search jobs by keywords/title
+    const keyword = req.query.keyword ? {
+        title: {
+            $regex: req.query.keyword,
+            $options: 'i'
+        }
+    } : {}
+
     // enable multi pages
     const sizeOfPage = 5;
     const page = Number(req.query.pageNumber) || 1;
-    const count = await Job.find({}).estimatedDocumentCount(); //to count jobs
+    const count = await Job.find({ ...keyword }).countDocuments(); //to count jobs
+    // const count = await Job.find({}).estimatedDocumentCount(); //to count jobs
     try {
 
-        const jobs = await Job.find().skip(sizeOfPage*(page-1)).limit(sizeOfPage);
+        const jobs = await Job.find({...keyword}).skip(sizeOfPage * (page - 1)).limit(sizeOfPage);
         res.status(200).json({
             succuss: true,
             jobs,
             page,
-            pages: Math.ceil(count/sizeOfPage),
+            pages: Math.ceil(count / sizeOfPage),
             count
         })
     } catch (error) {
