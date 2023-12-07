@@ -35,12 +35,32 @@ exports.OneJob = async (req, res, next) => {
         next(error);
     }
 }
+// display all job 
+exports.DisplayJobs = async (req, res, next) => {
+    // enable multi pages
+    const sizeOfPage = 5;
+    const page = Number(req.query.pageNumber) || 1;
+    const count = await Job.find({}).estimatedDocumentCount(); //to count jobs
+    try {
+
+        const jobs = await Job.find().skip(sizeOfPage*(page-1)).limit(sizeOfPage);
+        res.status(200).json({
+            succuss: true,
+            jobs,
+            page,
+            pages: Math.ceil(count/sizeOfPage),
+            count
+        })
+    } catch (error) {
+        next(error);
+    }
+}
 
 // edit job
 exports.editJob = async (req, res, next) => {
     try {
 
-        const job = await Job.findByIdAndUpdate(req.params.job_id, req.body, { new: true }).populate('jobType','JobTypeName').populate('user','firstName lastName');
+        const job = await Job.findByIdAndUpdate(req.params.job_id, req.body, { new: true }).populate('jobType', 'JobTypeName').populate('user', 'firstName lastName');
         res.status(200).json({
             succuss: true,
             job
