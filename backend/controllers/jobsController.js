@@ -90,13 +90,24 @@ exports.DisplayJobs = async (req, res, next) => {
         const ids = jobTypeCategory.map(cat => cat._id);
         const cat = req.query.cat || ids;
 
+        // location
+        let locations=[];
+        const jobsByLocation= await Job.find({},{location:1});
+        jobsByLocation.forEach(value=>{
+            locations.push(value.location);
+        })
+        let uniqueLocation=[...new Set(locations)];
+        let location = req.query.location;
+        let FliterdLocation =  location!==""?location: uniqueLocation;
+
+
         // Enable multi pages
         const sizeOfPage = 5;
         const page = Number(req.query.pageNumber) || 1;
-        const count = await Job.find({ ...keyword, jobType: cat }).countDocuments(); // To count jobs
+        const count = await Job.find({ ...keyword, jobType: cat, location: FliterdLocation }).countDocuments(); // To count jobs
 
         // Retrieve jobs with pagination
-        const jobs = await Job.find({ ...keyword, jobType: cat }).skip(sizeOfPage * (page - 1)).limit(sizeOfPage);
+        const jobs = await Job.find({ ...keyword, jobType: cat, location: FliterdLocation }).skip(sizeOfPage * (page - 1)).limit(sizeOfPage);
 
         if (jobs.length === 0) {
             return res.status(200).json({
@@ -105,10 +116,10 @@ exports.DisplayJobs = async (req, res, next) => {
                 jobs: [],
                 page,
                 pages: Math.ceil(count / sizeOfPage),
-                count
+                count,
             });
         }
-
+        
         // Send a JSON response with the retrieved jobs, current page, total pages, and total count
         res.status(200).json({
             success: true,
@@ -117,7 +128,7 @@ exports.DisplayJobs = async (req, res, next) => {
             pages: Math.ceil(count / sizeOfPage),
             count
         });
-
+        
     } catch (error) {
         // Pass any errors to the next middleware for further handling
         next(error);
