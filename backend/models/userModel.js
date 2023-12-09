@@ -1,4 +1,38 @@
 const mongoose = require('mongoose');
+const {ObjectId}=mongoose.Schema;
+const jobHistorySchema = new mongoose.Schema({
+    title: {
+        type: String,
+        trim: true,
+        maxlength: 50,
+    },
+    description: {
+        type: String,
+        trim: true,
+    },
+    salary: {
+        type: String,
+        trim: true,
+    },
+    interviewDate:{
+        type: Date
+    },
+    applicationStatus:{
+        type: String,
+        statuses: ['Accepted','Pending','Rejected'],
+        default:'Pending'
+    },
+    location: {
+        type: String,
+    },
+    user: {
+        type: ObjectId,
+        ref:'User',
+        required: true
+    },
+    
+}, { timestamps: true })
+
 const userSchema = new mongoose.Schema({
     firstName: {
         type: String,
@@ -28,7 +62,8 @@ const userSchema = new mongoose.Schema({
     role: {
         type: Number,
         default: 0
-    }
+    },
+    jobHistory:[jobHistorySchema]
 }, { timestamps: true })
 
 // to encrypt password befor being saved

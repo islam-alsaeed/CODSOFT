@@ -52,7 +52,7 @@ exports.deleteJobType = async (req, res, next) => {
         const job_type = await JobType.findByIdAndDelete(req.params.type_id);
         res.status(200).json({
             succuss: true,
-            message: "Job type deleted"
+            message: "Job type deleted successfully"
         })
     } catch (error) {
         next(new errorResponse("server error",500));

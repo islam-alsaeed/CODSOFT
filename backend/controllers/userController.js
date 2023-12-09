@@ -61,7 +61,34 @@ exports.deleteUser = async (req, res, next) => {
         const user = await User.findByIdAndDelete(req.params.id);
         res.status(200).json({
             success: true,
-            message:"user deleted successfully"
+            message: "user deleted successfully"
+        })
+        next();
+    } catch (error) {
+        return next(error);
+    }
+}
+// user's job history
+exports.addUserjobHistory = async (req, res, next) => {
+    const { title, description, salary, location } = req.body;
+    try {
+        const currerntUser = await User.findOne({ _id: req.user._id });
+        if (!currerntUser) {
+            return next(new errorResponse('You must be logedin'));
+        } else {
+            const addJobToHistory = {
+                title,
+                description,
+                salary,
+                location,
+                user: req.user._id
+            }
+            currerntUser.jobHistory.push(addJobToHistory);
+            await currerntUser.save();
+        }
+        res.status(200).json({
+            success: true,
+            currerntUser
         })
         next();
     } catch (error) {

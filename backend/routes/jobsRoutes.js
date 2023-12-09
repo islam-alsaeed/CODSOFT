@@ -14,7 +14,7 @@ router.put('/job/edit/:job_id',ifAuthenticated,recruiter,editJob);
 // display one job route
 router.get('/job/:id',OneJob);
 
-// display one job route
+// display all job route
 router.get('/jobs',DisplayJobs);
 
 
