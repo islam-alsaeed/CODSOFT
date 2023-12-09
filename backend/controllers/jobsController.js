@@ -83,7 +83,7 @@ exports.DisplayJobs = async (req, res, next) => {
 
     // const count = await Job.find({}).estimatedDocumentCount(); //to count jobs
     try {
-        const jobs = await Job.find({ ...keyword, jobType: categ, location: FliterdLocation }).skip(sizeOfPage * (page - 1)).limit(sizeOfPage);
+        const jobs = await Job.find({ ...keyword, jobType: categ, location: FliterdLocation }).sort({ createdAt: -1 }).skip(sizeOfPage * (page - 1)).limit(sizeOfPage);
         res.status(200).json({
             succuss: true,
             jobs,
