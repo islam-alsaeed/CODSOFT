@@ -60,9 +60,8 @@ exports.DisplayJobs = async (req, res, next) => {
     else if (cat == '' || cat == null) {
         categ = ids
     }
-    // let categ = cat !== '' ? cat : ids;
 
-    // 
+    // to filter jobs by location
     let locations = [];
     const jobsByLocation = await Job.find({}, { location: 1 });
     jobsByLocation.forEach(value => {
@@ -81,7 +80,6 @@ exports.DisplayJobs = async (req, res, next) => {
     const page = Number(req.query.pageNumber) || 1;
     const count = await Job.find({ ...keyword, jobType: categ, location: FliterdLocation }).countDocuments(); //to count jobs
 
-    // const count = await Job.find({}).estimatedDocumentCount(); //to count jobs
     try {
         const jobs = await Job.find({ ...keyword, jobType: categ, location: FliterdLocation }).sort({ createdAt: -1 }).skip(sizeOfPage * (page - 1)).limit(sizeOfPage);
         res.status(200).json({
@@ -96,31 +94,6 @@ exports.DisplayJobs = async (req, res, next) => {
     }
 }
 
-//         if (jobs.length === 0) {
-//             return res.status(200).json({
-//                 success: true,
-//                 message: 'No jobs found based on the specified criteria.',
-//                 jobs: [],
-//                 page,
-//                 pages: Math.ceil(count / sizeOfPage),
-//                 count,
-//             });
-//         }
-
-//         // Send a JSON response with the retrieved jobs, current page, total pages, and total count
-//         res.status(200).json({
-//             success: true,
-//             jobs,
-//             page,
-//             pages: Math.ceil(count / sizeOfPage),
-//             count
-//         });
-
-//     } catch (error) {
-//         // Pass any errors to the next middleware for further handling
-//         next(error);
-//     }
-// };
 
 // edit job
 exports.editJob = async (req, res, next) => {

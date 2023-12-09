@@ -22,7 +22,7 @@ router.put('/user/edit/:id', ifAuthenticated, editUser)
 // to delete user 
 router.delete('/recruiter/user/delete/:id', ifAuthenticated,recruiter, deleteUser)
 
-// to apply to job
+// to apply for job
 router.post('/user/applyjob/',ifAuthenticated, addUserjobHistory)
 
 
