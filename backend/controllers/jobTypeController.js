@@ -10,7 +10,7 @@ exports.createJobType = async (req, res, next) => {
             user: req.user.id,
         });
         res.status(201).json({
-            succuss: true,
+            success: true,
             job_type
         })
     } catch (error) {
@@ -24,7 +24,7 @@ exports.displayAllJobType = async (req, res, next) => {
 
         const job_type = await JobType.find();
         res.status(200).json({
-            succuss: true,
+            success: true,
             job_type
         })
     } catch (error) {
@@ -38,7 +38,7 @@ exports.updateJobType = async (req, res, next) => {
 
         const job_type = await JobType.findByIdAndUpdate(req.params.type_id, req.body, {new: true});
         res.status(200).json({
-            succuss: true,
+            success: true,
             job_type
         })
     } catch (error) {
@@ -51,7 +51,7 @@ exports.deleteJobType = async (req, res, next) => {
 
         const job_type = await JobType.findByIdAndDelete(req.params.type_id);
         res.status(200).json({
-            succuss: true,
+            success: true,
             message: "Job type deleted successfully"
         })
     } catch (error) {
