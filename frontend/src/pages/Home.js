@@ -28,15 +28,6 @@ const Home = () => {
                         direction={{ xs: 'column', sm: 'row' }}
                         spacing={{ xs: 1, sm: 2, md: 4 }}
                     >
-                        <Box sx={{ flex: 2, p: 2 }}>
-                            <Card sx={{ minWidth: 150, mb: 3, mt: 3, p: 2 }}>
-                                <Box sx={{ pb: 2 }}>
-                                    <Typography component="h4" sx={{ color: palette.secondary.main }}>
-                                        Filter Jobs by Category
-                                    </Typography>
-                                </Box>
-                            </Card>
-                        </Box>
                         <Box sx={{ flex: 6, p: 2 }}>
                             {
                                 jobs && jobs.map((job, e) => (
@@ -45,11 +36,20 @@ const Home = () => {
                                         id={job._id}
                                         jobTitle={job.title}
                                         description={job.description}
-                                        category={job.jobType ? job.jobType.jobTypeName : "No category"}
+                                        category={job.jobType ? job.jobType.jobTypeName : "No Job category"}
                                         location={job.location}
                                     />
                                 ))
                             }
+                        </Box>
+                        <Box sx={{ flex: 2, p: 2 }}>
+                            <Card sx={{ minWidth: 150, mb: 3, mt: 3, p: 2 }}>
+                                <Box sx={{ pb: 2 }}>
+                                    <Typography component="h4" sx={{ color: palette.secondary.main }}>
+                                        Filter Jobs by Category
+                                    </Typography>
+                                </Box>
+                            </Card>
                         </Box>
                     </Stack>
                 </Container>

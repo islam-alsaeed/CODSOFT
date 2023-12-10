@@ -4,6 +4,8 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
+import AddIcon from '@mui/icons-material/Add';
+import { Link } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import { IconButton, useTheme } from '@mui/material';
 import LocationOnIcon from '@mui/icons-material/LocationOn'; // Correct import
@@ -28,8 +30,9 @@ const JobCard = ({ jobTitle, description, location, id, category }) => {
             : 'Description not available';
 
     return (
-        <Card sx={{ minWidth: 275, mb: 2 }}>
-            <CardContent>
+        <Card sx={{ minWidth: 275,  mb: 2, ml: 1, mr: 1 ,display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+            <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'left' }}>
+
                 <Typography sx={{ fontSize: 1, color: palette.secondary.main }} gutterBottom>
                     <IconButton>
                         <LocationOnIcon sx={{ color: palette.secondary.main, fontSize: 20 }} />
@@ -50,7 +53,7 @@ const JobCard = ({ jobTitle, description, location, id, category }) => {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small">Learn More</Button>
+                <Button variant='contained' size="small" startIcon={<AddIcon />}><Link style={{ textDecoration: "none", color: "white" }} to={`/job/${id}`}>Learn More</Link></Button>
             </CardActions>
         </Card>
     );
