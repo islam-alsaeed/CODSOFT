@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../component/Navbar";
 import Header from "../component/Header";
-import { Box, Card, Container, Stack, Typography, useTheme } from "@mui/material";
+import { Box, Card, Container, Pagination, Stack, Typography, useTheme } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { jobLoadAction } from "../redux/actions/jobAction";
 import { useParams } from 'react-router-dom';
@@ -41,6 +41,9 @@ const Home = () => {
                                     />
                                 ))
                             }
+                            <Stack spacing={2} >
+                                <Pagination page={pageNumber} count={pages === 0 ? 1 : pages} onChange={(event, value) => setPage(value)} />
+                            </Stack>
                         </Box>
                         <Box sx={{ flex: 2, p: 2 }}>
                             <Card sx={{ minWidth: 150, mb: 3, mt: 3, p: 2 }}>
@@ -50,10 +53,11 @@ const Home = () => {
                                     </Typography>
                                 </Box>
                             </Card>
+
                         </Box>
                     </Stack>
                 </Container>
-                <h1>Home page</h1>
+
             </Box>
         </>
     )
