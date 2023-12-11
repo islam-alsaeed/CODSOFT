@@ -8,7 +8,7 @@ import { jobLoadAction } from "../redux/actions/jobAction";
 import { useParams } from 'react-router-dom';
 import JobCard from "../component/JobCard";
 import { Loading, NoResult } from "../component/Loading";
-import JobCateComponent from "../component/JobCateComponent";
+import JobCateComponent from "../component/JobFilterComponent";
 import { jobCateLoadAction } from "../redux/actions/JobCategoryActions";
 
 const Home = () => {
@@ -65,6 +65,12 @@ const Home = () => {
                         <Box sx={{ flex: 2, p: 2 }}>
                             <Card sx={{ minWidth: 150, mb: 3, mt: 3, p: 2 }}>
                                 <Box sx={{ pb: 2 }}>
+                                    <Typography component="h4" sx={{ color: palette.secondary.main }}>
+                                        Filter Jobs by Category
+                                    </Typography>
+                                </Box>
+                                <JobCateComponent handleCategoryChange={handleCategoryChange} cat={cat} />
+                                <Box sx={{ pt:2,pb: 2 }}>
                                     <Typography component="h4" sx={{ color: palette.secondary.main }}>
                                         Filter Jobs by Category
                                     </Typography>
