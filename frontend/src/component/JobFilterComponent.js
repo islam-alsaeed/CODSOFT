@@ -6,7 +6,28 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useSelector } from 'react-redux';
 
-const JobCateComponent = ({ handleCategoryChange, cat }) => {
+export const JobLocationComponent = ({ LocationChange, location }) => {
+    return (
+        <FormControl fullWidth>
+            <InputLabel id="location-filter-label" >Select Location</InputLabel>
+            <Select
+                labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                value={location}
+                onChange={LocationChange}
+            >
+                <MenuItem value="">All Locations</MenuItem>
+                {/* Check if uniqueLocation exists before mapping over it */}
+                {location && location.map((loc, index) => (
+                    <MenuItem key={index} value={loc}>
+                        {loc}
+                    </MenuItem>
+                ))}
+            </Select>
+        </FormControl>
+    );
+}
+export const JobCateComponent = ({ handleCategoryChange, cat }) => {
 
     const { jobType } = useSelector(state => state.allJobType);
 
@@ -35,4 +56,4 @@ const JobCateComponent = ({ handleCategoryChange, cat }) => {
     )
 }
 
-export default JobCateComponent
+// export default JobCateComponent

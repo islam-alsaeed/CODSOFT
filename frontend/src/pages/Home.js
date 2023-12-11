@@ -8,25 +8,37 @@ import { jobLoadAction } from "../redux/actions/jobAction";
 import { useParams } from 'react-router-dom';
 import JobCard from "../component/JobCard";
 import { Loading, NoResult } from "../component/Loading";
-import JobCateComponent from "../component/JobFilterComponent";
+import {JobCateComponent,JobLocationComponent} from "../component/JobFilterComponent";
+// import JobLocationComponent from "../component/JobLocationComponent";  // Import JobLocationComponent
+
 import { jobCateLoadAction } from "../redux/actions/JobCategoryActions";
 
 const Home = () => {
     const dispatch = useDispatch();
     const { palette } = useTheme();
     const [cat, setCat] = React.useState('');
+    const [locationFilter, setLocationFilter] = React.useState('');  // Define setLocationFilter
     const [pageNumber, setPage] = useState(1);
     const { keyword, location } = useParams();
-    const { jobs, uniqueLocation, pages, loading } = useSelector(state => state.loadJobs)
+    const { jobs, uniqueLocation, pages, loading } = useSelector(state => state.loadJobs);
+
     useEffect(() => {
-        dispatch(jobLoadAction(pageNumber, keyword, cat, location));
-    }, [pageNumber, keyword, cat, location])
+        dispatch(jobLoadAction(pageNumber, keyword, cat, locationFilter));
+    }, [pageNumber, keyword, cat, locationFilter]);
+
     useEffect(() => {
         dispatch(jobCateLoadAction());
-    }, [])
+    }, []);
+
     const handleCategoryChange = (g) => {
         setCat(g.target.value);
     }
+
+    const handleLocationChange = (l) => {
+        setLocationFilter(l.target.value);
+        dispatch(jobLoadAction(pageNumber, keyword, cat, l.target.value));
+    }
+
     return (
         <>
             <Box>
@@ -41,7 +53,7 @@ const Home = () => {
                             {
                                 loading ?
                                     <Loading></Loading> :
-                                    jobs & jobs.length === 0 ?
+                                    jobs && jobs.length === 0 ?
                                         <NoResult />
                                         :
                                         jobs && jobs.map((job, e) => (
@@ -70,14 +82,14 @@ const Home = () => {
                                     </Typography>
                                 </Box>
                                 <JobCateComponent handleCategoryChange={handleCategoryChange} cat={cat} />
-                                <Box sx={{ pt:2,pb: 2 }}>
-                                    <Typography component="h4" sx={{ color: palette.secondary.main }}>
-                                        Filter Jobs by Category
+
+                                <Box sx={{ pt: 2, pb: 2 }}>
+                                    <Typography component="h4" sx={{ color: palette.secondary.main, fontWeight: 600 }}>
+                                        Filter Jobs by Location
                                     </Typography>
                                 </Box>
-                                <JobCateComponent handleCategoryChange={handleCategoryChange} cat={cat} />
+                                <JobLocationComponent LocationChange={handleLocationChange} location={uniqueLocation} />
                             </Card>
-
                         </Box>
                     </Stack>
                 </Container>
@@ -86,4 +98,4 @@ const Home = () => {
         </>
     )
 }
-export default Home
+export default Home;
