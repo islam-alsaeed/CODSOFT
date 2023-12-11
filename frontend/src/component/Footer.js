@@ -1,9 +1,22 @@
+import { Box, useTheme } from '@mui/material'
 import React from 'react'
 
-const footer = () => {
+const Footer = () => {
+  const {palette}=useTheme();
   return (
-    <div>footer</div>
+    <>
+    <Box sx={{
+      bgcolor:palette.secondary.midNightGreen,
+      alignItems:'center',
+      justifyContent:'center',
+      height:'50px',
+      display: 'flex',
+
+    }}>
+      <Box sx={{color:palette.primary.main}} component='footer'> CodSoft Inten</Box>
+    </Box>
+    </>
   )
 }
 
-export default footer
+export default Footer

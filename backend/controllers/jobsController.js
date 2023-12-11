@@ -15,7 +15,7 @@ exports.createJob = async (req, res, next) => {
             user: req.user.id,
         });
         res.status(201).json({
-            succuss: true,
+            success: true,
             job
         })
     } catch (error) {
@@ -29,7 +29,7 @@ exports.OneJob = async (req, res, next) => {
 
         const job = await Job.findById(req.params.id);
         res.status(200).json({
-            succuss: true,
+            success: true,
             job
         })
     } catch (error) {
@@ -83,11 +83,12 @@ exports.DisplayJobs = async (req, res, next) => {
     try {
         const jobs = await Job.find({ ...keyword, jobType: categ, location: FliterdLocation }).sort({ createdAt: -1 }).skip(sizeOfPage * (page - 1)).limit(sizeOfPage);
         res.status(200).json({
-            succuss: true,
+            success: true,
             jobs,
             page,
             pages: Math.ceil(count / sizeOfPage),
             count,
+            uniqueLocation
         })
     } catch (error) {
         next(error);
@@ -101,7 +102,7 @@ exports.editJob = async (req, res, next) => {
 
         const job = await Job.findByIdAndUpdate(req.params.job_id, req.body, { new: true }).populate('jobType', 'JobTypeName').populate('user', 'firstName lastName');
         res.status(200).json({
-            succuss: true,
+            success: true,
             job
         })
     } catch (error) {
