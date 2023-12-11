@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { jobLoadAction } from "../redux/actions/jobAction";
 import { useParams } from 'react-router-dom';
 import JobCard from "../component/JobCard";
+import { Loading, NoResult } from "../component/Loading";
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -31,16 +32,21 @@ const Home = () => {
                     >
                         <Box sx={{ flex: 6, p: 2 }}>
                             {
-                                jobs && jobs.map((job, e) => (
-                                    <JobCard
-                                        key={e}
-                                        id={job._id}
-                                        jobTitle={job.title}
-                                        description={job.description}
-                                        category={job.jobType ? job.jobType.jobTypeName : "No Job category"}
-                                        location={job.location}
-                                    />
-                                ))
+                                loading ?
+                                    <Loading></Loading> :
+                                    jobs & jobs.length === 0 ?
+                                        <NoResult />
+                                        :
+                                        jobs && jobs.map((job, e) => (
+                                            <JobCard
+                                                key={e}
+                                                id={job._id}
+                                                jobTitle={job.title}
+                                                description={job.description}
+                                                category={job.jobType ? job.jobType.jobTypeName : "No Job category"}
+                                                location={job.location}
+                                            />
+                                        ))
                             }
                             <Stack spacing={2} sx={{
                                 alignContent: "center",
