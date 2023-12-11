@@ -8,6 +8,8 @@ import { jobLoadAction } from "../redux/actions/jobAction";
 import { useParams } from 'react-router-dom';
 import JobCard from "../component/JobCard";
 import { Loading, NoResult } from "../component/Loading";
+import JobCateComponent from "../component/JobCateComponent";
+import { jobCateLoadAction } from "../redux/actions/JobCategoryActions";
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -19,10 +21,15 @@ const Home = () => {
     useEffect(() => {
         dispatch(jobLoadAction(pageNumber, keyword, cat, location));
     }, [pageNumber, keyword, cat, location])
+    useEffect(() => {
+        dispatch(jobCateLoadAction());
+    }, [])
+    const handleCategoryChange = (g) => {
+        setCat(g.target.value);
+    }
     return (
         <>
             <Box>
-
                 <Navbar />
                 <Header />
                 <Container>
@@ -62,6 +69,7 @@ const Home = () => {
                                         Filter Jobs by Category
                                     </Typography>
                                 </Box>
+                                <JobCateComponent handleCategoryChange={handleCategoryChange} cat={cat} />
                             </Card>
 
                         </Box>

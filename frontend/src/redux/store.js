@@ -1,11 +1,13 @@
 import { combineReducers, applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from '@redux-devtools/extension';
+import { loadJobTypeReducer } from './reducers/JobCategoryReducer';
 import { loadJobReducer } from './reducers/jobReducer';
 
 // combine reducers
 const reducer = combineReducers({
   loadJobs: loadJobReducer,
+  allJobType:loadJobTypeReducer
 });
 
 // initial state
