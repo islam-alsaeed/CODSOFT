@@ -9,10 +9,11 @@ const App = () => {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <CssBaseline/>
+        <CssBaseline />
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<Home />} />
+            <Route path='/search/:keyword' element={<Home />} />
             <Route path='*' element={<NotFound />} />
           </Routes>
         </BrowserRouter>

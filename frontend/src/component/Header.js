@@ -1,26 +1,28 @@
+import { Box, styled } from '@mui/material'
 import React from 'react'
-import { Box, styled } from '@mui/material';
-import headerImage from '../images/header-work.jpg'
+import headerImage from '../images/header-work.jpg';
+import SearchInput from './SearchInput';
 
 const Header = () => {
-    const HeaderStyle = styled(Box)(({theme}) => (
-        {
-            justifyContent: 'center',
-            display: 'flex',
-            backgroundImage: `url(${headerImage})`,
-            minHeight:'500px',
-            backgroundPosition:'center',
-            backgroundSize:'cover',
-            // backgroundColor: theme.palette.secondary.main
-            
 
+    const StyleHeader = styled(Box)(({ theme }) => (
+        {
+            display: "flex",
+            justifyContent: 'center',
+            alignItems: 'center',
+            minHeight: 400,
+            backgroundImage: `url(${headerImage})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundColor: theme.palette.secondary.main
         }
+
     ));
     return (
         <>
-        <HeaderStyle>
-            
-        </HeaderStyle>
+            <StyleHeader >
+                <SearchInput />
+            </StyleHeader>
         </>
     )
 }
