@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../component/Navbar";
 import Header from "../component/Header";
+import Footer from "../component/Footer";
 import { Box, Card, Container, Pagination, Stack, Typography, useTheme } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { jobLoadAction } from "../redux/actions/jobAction";
@@ -41,7 +42,10 @@ const Home = () => {
                                     />
                                 ))
                             }
-                            <Stack spacing={2} >
+                            <Stack spacing={2} sx={{
+                                alignContent: "center",
+                                alignItems: "center"
+                            }}>
                                 <Pagination page={pageNumber} count={pages === 0 ? 1 : pages} onChange={(event, value) => setPage(value)} />
                             </Stack>
                         </Box>
@@ -57,8 +61,8 @@ const Home = () => {
                         </Box>
                     </Stack>
                 </Container>
-
             </Box>
+            <Footer />
         </>
     )
 }
