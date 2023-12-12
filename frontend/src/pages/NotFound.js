@@ -2,8 +2,7 @@ import { Box, Grid, styled } from '@mui/material'
 import React from 'react'
 import Footer from '../component/Footer'
 import Navbar from '../component/Navbar'
-import imagee from '../images/notfound_404-error.gif'
-import headerImage from '../images/header-work.jpg';
+import backgroundImage from '../images/header-work.jpg';
 
 const StyleHeader = styled(Box)(({ theme }) => (
   {
@@ -12,7 +11,7 @@ const StyleHeader = styled(Box)(({ theme }) => (
     justifyContent: 'center',
     alignItems: 'center',
     minHeight: 400,
-    backgroundImage: `url(${headerImage})`,
+    backgroundImage: `url(${backgroundImage})`,
     backgroundSize: "cover",
     backgroundPosition: "center",
     '&::before': {

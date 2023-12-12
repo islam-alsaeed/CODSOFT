@@ -15,11 +15,12 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
+import { Link } from 'react-router-dom';
 
 
 
-const pages = ['Home', 'Job Listings'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pages = ['Job Listings'];
+const settings = ['Profile', 'Account', 'Login', 'Logout'];
 
 // search element begin
 const Search = styled('div')(({ theme }) => ({
@@ -84,6 +85,32 @@ function Navbar() {
         setAnchorElUser(null);
     };
 
+    const getPageUrl = (page) => {
+        switch (page) {
+            case 'Home':
+                return '/';
+            case 'Job Listings':
+                return '/*';
+            // Add more cases for other pages as needed
+            default:
+                return '/';
+        }
+    };
+    const getSettingUrl = (setting) => {
+        switch (setting) {
+            case 'Profile':
+                return '/profile';
+            case 'Account':
+                return '/account';
+            case 'Login':
+                return '/login';
+            case 'Logout':
+                return '/logout';
+            // Add more cases for other settings as needed
+            default:
+                return '/';
+        }
+    };
     return (
         <AppBar position="static">
             <Container maxWidth="xl">
@@ -144,12 +171,13 @@ function Navbar() {
                         </Menu>
                     </Box>
                     <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-                    
+
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
                             <Button
                                 key={page}
-                                onClick={handleCloseNavMenu}
+                                component={Link}
+                                to={getPageUrl(page)} // Get the relevant URL for each page
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
                                 {page}
@@ -191,7 +219,9 @@ function Navbar() {
                         >
                             {settings.map((setting) => (
                                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center">{setting}</Typography>
+                                    <Link to={getSettingUrl(setting)} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                        <Typography textAlign="center">{setting}</Typography>
+                                    </Link>
                                 </MenuItem>
                             ))}
                         </Menu>
