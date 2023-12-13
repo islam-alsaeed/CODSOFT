@@ -14,6 +14,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { userLogoutAction } from '../../redux/actions/userAction';
 import { useNavigate } from 'react-router-dom';
 import LoginIcon from '@mui/icons-material/Login';
+import GridViewIcon from '@mui/icons-material/GridView';
+import InfoIcon from '@mui/icons-material/Info';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 
 const SidebarAdm = () => {
@@ -84,9 +87,9 @@ const SidebarAdm = () => {
                                         <MenuItem component={<Link to="/admin/category" />} icon={<CategoryIcon />}> Category </MenuItem>
                                     </> :
                                     <>
-                                        <MenuItem component={<Link to="/user/dashboard" />} icon={<DashboardIcon />}> Dashboard </MenuItem>
+                                        <MenuItem component={<Link to="/user/dashboard" />} icon={<GridViewIcon />}> Dashboard </MenuItem>
                                         <MenuItem component={<Link to="/user/jobs" />} icon={<WorkHistoryIcon />}> Applied Jobs </MenuItem>
-                                        <MenuItem component={<Link to="/user/info" />} icon={<Person3Icon />}> Personal Info </MenuItem>
+                                        <MenuItem component={<Link to="/user/info" />} icon={<InfoIcon />}> Personal Info </MenuItem>
                                     </>
                             }
 
@@ -116,7 +119,7 @@ const SidebarAdm = () => {
                                 },
                             }}
                         >
-                            <MenuItem onClick={logOut} icon={<LoginIcon />}>   Log out </MenuItem>
+                            <MenuItem onClick={logOut} icon={<LogoutIcon />}>   Log out </MenuItem>
                         </Menu>
                     </Box>
                 </Box>

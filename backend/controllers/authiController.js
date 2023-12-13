@@ -52,7 +52,7 @@ exports.signup = async (req, res, next) => {
 }
 
 // logout mechanism
-exports.logout = (req, res, next) => {
+exports.logout = (user, statuscode, res) => {
     res.clearCookie('token');
     res.status(200).json({
         success: true,
@@ -62,7 +62,7 @@ exports.logout = (req, res, next) => {
 const sendTokenResponse = async (user, statuscode, res) => {
     const token = await user.getJwtToken();
     res.status(statuscode).cookie('token', token, { maxAge: 60 * 60 * 1000, httponly: true })
-        .json({ success: true, token, user })
+        .json({ success: true, role: user.role })
 }
 
 // user profile
