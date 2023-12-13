@@ -15,7 +15,11 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
-import { Link } from 'react-router-dom';
+import { useTheme } from '@emotion/react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { userLogoutAction } from '../redux/actions/userAction';
+
 
 
 
@@ -66,9 +70,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 // search elements ends
 
-function Navbar() {
+const Navbar = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const { palette } = useTheme();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { userInfo } = useSelector(state => state.login);
+
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -85,6 +94,14 @@ function Navbar() {
         setAnchorElUser(null);
     };
 
+    // log out user
+    const logOutUser = () => {
+        dispatch(userLogoutAction());
+        window.location.reload(true);
+        setTimeout(() => {
+            navigate('/');
+        }, 500)
+    }
     const getPageUrl = (page) => {
         switch (page) {
             case 'Home':
@@ -99,7 +116,7 @@ function Navbar() {
     const getSettingUrl = (setting) => {
         switch (setting) {
             case 'Profile':
-                return '/profile';
+                return '/DashBoard';
             case 'Account':
                 return '/account';
             case 'Login':
@@ -217,13 +234,20 @@ function Navbar() {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Link to={getSettingUrl(setting)} style={{ textDecoration: 'none', color: 'inherit' }}>
-                                        <Typography textAlign="center">{setting}</Typography>
-                                    </Link>
-                                </MenuItem>
-                            ))}
+                            <MenuItem onClick={handleCloseUserMenu}>
+                                <Typography textAlign="center"><Link style={{ textDecoration: "none", color: palette.primary.main }} to="/admin/dashboard">Dashboard</Link></Typography>
+                            </MenuItem>
+                            {
+                                !userInfo ?
+
+                                    <MenuItem onClick={handleCloseUserMenu}>
+                                        <Typography textAlign="center"><Link style={{ textDecoration: "none", color: palette.primary.main }} to="/login">Log In</Link></Typography>
+                                    </MenuItem> :
+
+                                    <MenuItem onClick={logOutUser}>
+                                        <Typography style={{ textDecoration: "none", color: palette.primary.main }} textAlign="center">Log Out</Typography>
+                                    </MenuItem>
+                            }
                         </Menu>
                     </Box>
                 </Toolbar>

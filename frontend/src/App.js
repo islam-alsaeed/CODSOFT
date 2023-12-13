@@ -7,6 +7,13 @@ import { theme } from './theme';
 import {ToastContainer} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import Login from './pages/Login';
+import CanDashboard from './pages/user/CanDashboard';
+import UserRoute from './component/UserRoute';
+import { ProSidebarProvider } from 'react-pro-sidebar';
+import Layout from './pages/global/Layout';
+
+
+const CanDashboardHOC = Layout(CanDashboard);
 
 const App = () => {
   return (
@@ -25,14 +32,18 @@ const App = () => {
       />
       <ThemeProvider theme={theme}>
         <CssBaseline />
+        <ProSidebarProvider>
+
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/login' element={<Login />} />
             <Route path='/search/:keyword' element={<Home />} />
+            <Route path='/user/canDashboard' element={<UserRoute><CanDashboardHOC /></UserRoute>} />
             <Route path='*' element={<NotFound />} />
           </Routes>
         </BrowserRouter>
+        </ProSidebarProvider>
       </ThemeProvider>
     </>
   )

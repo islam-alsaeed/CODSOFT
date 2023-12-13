@@ -33,19 +33,19 @@ export const userLoginReducer = (state = {}, action) => {
             return {
                 loading: true,
                 ifAuthenticated: false,
-                userData: null,
+                userInfo: null,
             }
         case USER_SIGNIN_SUCCESS:
             return {
                 loading: false,
                 ifAuthenticated: true,
-                userData: action.payload,
+                userInfo: action.payload,
             }
         case USER_SIGNIN_FAIL:
             return {
                 loading: false,
                 ifAuthenticated: false,
-                userData: null,
+                userInfo: null,
                 error: action.payload
             }
         case USER_SIGNIN_RESET:

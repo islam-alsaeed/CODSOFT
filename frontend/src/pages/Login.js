@@ -30,7 +30,7 @@ const Login = () => {
     const { ifAuthenticated } = useSelector(state => state.login);
     useEffect(() => {
         if (ifAuthenticated) {
-            navigate('/user/Profile');
+            navigate('/user/canDashboard');
         }
     }, [ifAuthenticated])
 
