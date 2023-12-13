@@ -11,7 +11,7 @@ const reducer = combineReducers({
   allJobType:loadJobTypeReducer,
   login: userLoginReducer,
   userProfile:userProfileReducer,
-  logout:userLogoutReducer
+  logOut:userLogoutReducer
 });
 
 // initial state

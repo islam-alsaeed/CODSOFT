@@ -29,7 +29,6 @@ const SidebarAdm = () => {
     //log out 
     const logOut = () => {
         dispatch(userLogoutAction());
-        window.location.reload(true);
         setTimeout(() => {
             navigate('/');
         }, 500)

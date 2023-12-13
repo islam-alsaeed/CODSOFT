@@ -23,7 +23,7 @@ import { userLogoutAction } from '../redux/actions/userAction';
 
 
 
-const pages = ['Job Listings'];
+const pages = ['Job Listings / Home'];
 const settings = ['Profile', 'Account', 'Login', 'Logout'];
 
 // search element begin
@@ -107,7 +107,7 @@ const Navbar = () => {
             case 'Home':
                 return '/';
             case 'Job Listings':
-                return '/*';
+                return '/';
             // Add more cases for other pages as needed
             default:
                 return '/';

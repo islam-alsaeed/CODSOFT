@@ -52,11 +52,11 @@ exports.signup = async (req, res, next) => {
 }
 
 // logout mechanism
-exports.logout = (user, statuscode, res) => {
+exports.logout = (req, res, next) => {
     res.clearCookie('token');
     res.status(200).json({
         success: true,
-        message: "Logged out"
+        message: "Logged out Successfully"
     })
 }
 const sendTokenResponse = async (user, statuscode, res) => {
